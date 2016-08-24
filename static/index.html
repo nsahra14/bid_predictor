@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ebay Bid Predictor</title>
+
+<script src="static/bidpredictor.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
+
+</head>
+
+<body>
+<H1>Ebay Bid Predictor</H1>
+
+<P>Enter the average of the bids so far, the stanard deviation of the bids, and the opening bid value
+<input value ="Enter average" id="average_field">
+<br>
+<input value ="Enter standard dev" id="std_dev_field">
+<br>
+<input value ="Enter opening bid" id = "open_field"></P>
+
+<P><input type="button" value="please wait"
+  onclick="will_be_set_after_api_is_loaded"></P>
+
+  
+</body>
+
+</html>
