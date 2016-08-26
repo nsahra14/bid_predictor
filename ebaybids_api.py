@@ -20,10 +20,10 @@ REQUEST_CONTAINER = endpoints.ResourceContainer(
     opening=messages.IntegerField(3)
 )
 
-# package = 'Hello'
+package = 'Bid'
 
 
-class Query(messages.Message):
+class Bid(messages.Message):
     """string stores output message."""
     msg = messages.StringField(1)
 
@@ -32,17 +32,17 @@ class Query(messages.Message):
 class EbayBidsApi(remote.Service):
     """EbayBidsApi API v1."""
 
-    @endpoints.method(message_types.VoidMessage, Query,
-      path = "noInput", http_method='GET', name = "noInput")
-    def noInput(self, request):
-      return Query(msg="No User Input Yet")
+    #@endpoints.method(message_types.VoidMessage, Bid,
+    #  path = "noInput", http_method='GET', name = "noInput")
+    #def noInput(self, request):
+    #  return Bid(msg="No User Input Yet")
 
-    @endpoints.method(REQUEST_CONTAINER, Query,
+    @endpoints.method(REQUEST_CONTAINER, Bid,
       path = "calculateClosing", http_method='GET', name = "calculateClosing")
     def calculuate_Closing(self, request):
       #calculate delta from linear model
       closing = "{}".format(request.opening)
-      return Query(msg=closing)
+      return Bid(msg=closing)
 
 
 
