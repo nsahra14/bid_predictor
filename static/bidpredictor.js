@@ -24,11 +24,12 @@ function enableButton() {
 
 function BidInfo() {
 
-	var average = document.getElementById("average_field");
-	var std = document.getElementById("std_dev_field");
-	var opening = document.getElementById("open_field");
+	var average = document.getElementById("average_field").value;
+	var std = document.getElementById("std_dev_field").value;
+	var opening = document.getElementById("open_field").value;
 	
-	var request = gapi.client.ebaybidsendpoints.calculateClosing({'average': average, 'std' : std, 'opening' : opening});
+	var request = gapi.client.ebaybidsendpoints.calculateClosing({'opening': opening, 'average': average, 'std': std});
+	
 	request.execute(BidInfoCallback);
 
 }
@@ -36,5 +37,5 @@ function BidInfo() {
 function BidInfoCallback(response) {
 
 	alert(response.msg);
-	
+
 }
