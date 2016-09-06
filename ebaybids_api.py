@@ -8,16 +8,16 @@ import endpoints
 from protorpc import messages
 from protorpc import message_types
 from protorpc import remote
-
+#import ebaydata 
 
 # If the request contains path or querystring arguments,
 # you cannot use a simple Message class.
 # Instead, you must use a ResourceContainer class
 REQUEST_CONTAINER = endpoints.ResourceContainer(
     message_types.VoidMessage,
-    average=messages.IntegerField(1),
-    std=messages.IntegerField(2),
-    opening=messages.IntegerField(3)
+    average=messages.FloatField(1),
+    std=messages.FloatField(2),
+    opening=messages.FloatField(3)
 )
 
 package = 'Bid'
@@ -26,6 +26,11 @@ package = 'Bid'
 class Bid(messages.Message):
     """string stores output message."""
     msg = messages.StringField(1)
+    opening = messages.FloatField(2)
+    delta = messages.FloatField(3)
+    closing = messages.FloatField(4)
+
+
 
 
 @endpoints.api(name='ebaybidsendpoints', version='v1')
@@ -40,9 +45,16 @@ class EbayBidsApi(remote.Service):
     @endpoints.method(REQUEST_CONTAINER, Bid,
       path = "calculateClosing", http_method='GET', name = "calculateClosing")
     def calculuate_Closing(self, request):
-      #calculate delta from linear model
-      closing = "{}".format(request.opening)
-      return Bid(msg=closing)
+      #calculate delta from ols model
+      o = float(request.opening)
+      d = (-0.224271) + (0.066683*request.average) + (3.070601*request.std)
+      c = o + d
+      retval = Bid(msg = "success", 
+        opening = o, 
+        delta = d, 
+        closing = c)
+
+      return retval
 
 
 
